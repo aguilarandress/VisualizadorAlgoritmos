@@ -11,6 +11,8 @@ public class HelloScript : MonoBehaviour
     {
         var result = ArraySorter.MedirInsertionSort(1000);
         Debug.Log($"El algoritmo duro {result} milisegundos");
+        result = ArraySorter.MedirMergeSort(1000);
+        Debug.Log($"El algoritmo duro {result} milisegundos");
     }
 
     // Update is called once per frame
