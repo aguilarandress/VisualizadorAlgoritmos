@@ -360,7 +360,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   circuloSprite: {fileID: 21300000, guid: 00b2b01c3877b6349919525374258ff0, type: 3}
-  graphContainer: {fileID: 0}
 --- !u!1 &692753395
 GameObject:
   m_ObjectHideFlags: 0

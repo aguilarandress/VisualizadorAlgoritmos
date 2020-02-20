@@ -11,6 +11,8 @@ namespace Utils
 
         public static int MedirInsertionSort(int numeroDeElementos)
         {
+            // Reiniciar el stop watch
+            stopwatch.Reset();
             // Crear arreglo con la cantidad de elementos
             int[] arregloAleatorio = GenerarRandomArray(numeroDeElementos);
             // Empezar a medir el tiempo
@@ -21,18 +23,16 @@ namespace Utils
         }
 
         public static int MedirMergeSort(int numeroDeElemento)
-        {      
-
-           
-            
+        {
+            // Reiniciar el stop watch
+            stopwatch.Reset();
             List<int> unsorted = new List<int>();
             List<int> sorted;
-            //Genera una lista aleatoria
+            // Genera una lista aleatoria
             Random random = new Random();
             for (int i = 0; i < numeroDeElemento; i++)
             {
                 unsorted.Add(random.Next(numeroDeElemento));
-
             }
             // Empezar a medir el tiempo
             stopwatch.Start();
@@ -70,12 +70,11 @@ namespace Utils
                 arr[pointer + 1] = valorActual;
             }
         }
-        //Algoritmo de ordenamiento Merge Sort
+        // Algoritmo de ordenamiento Merge Sort
         private static List<int> MergeSort(List<int> unsorted)
         {
             if (unsorted.Count <= 1)
                 return unsorted;
-
             List<int> left = new List<int>();
             List<int> right = new List<int>();
 
@@ -88,7 +87,6 @@ namespace Utils
             {
                 right.Add(unsorted[i]);
             }
-
             left = MergeSort(left);
             right = MergeSort(right);
             return Merge(left, right);
@@ -127,7 +125,5 @@ namespace Utils
             }
             return result;
         }
-
-
-        }
+    }
 }
