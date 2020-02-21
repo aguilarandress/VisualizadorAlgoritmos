@@ -15,9 +15,10 @@ public class Window_Graph : MonoBehaviour
         var result = ArraySorter.MedirInsertionSort(9000);
         Debug.Log($"El algoritmo duro {result} milisegundos");
         // Crear insertion sort
-        CrearGraficaInsertionSort();
+        //CrearGraficaInsertionSort();
+        CrearGraficaMergeSort();
     }
-    
+
     // Crear un circulo con el sprite
     public void CreateCircle(Vector2 position)
     {
@@ -58,6 +59,22 @@ public class Window_Graph : MonoBehaviour
         {
             // Medir tiempo segun cantidad de elementos
             var resultadoTiempo = ArraySorter.MedirInsertionSort(cantidadDeElementosActual);
+            resultadosDeTiempo[cantidadDeElementosActual / 1000 - 1] = resultadoTiempo;
+            cantidadDeElementosActual += 1000;
+        }
+        // Mostrar grafico
+        ShowGraph(resultadosDeTiempo);
+    }
+
+    private void CrearGraficaMergeSort()
+    {
+        int[] resultadosDeTiempo = new int[9];
+        int cantidadDeElementosActual = 1000;
+        // Agregar valores de tiempo al arreglo
+        while (cantidadDeElementosActual < 10000)
+        {
+            // Medir tiempo segun cantidad de elementos
+            var resultadoTiempo = ArraySorter.MedirMergeSort(cantidadDeElementosActual);
             resultadosDeTiempo[cantidadDeElementosActual / 1000 - 1] = resultadoTiempo;
             cantidadDeElementosActual += 1000;
         }
