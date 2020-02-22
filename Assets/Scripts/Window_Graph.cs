@@ -9,18 +9,30 @@ public class Window_Graph : MonoBehaviour
     private RectTransform graphContainer;
     private RectTransform labelTemplateX;
     private RectTransform labelTemplateY;
+    public Button algorithmButton;
 
     private void Awake()
     {
         graphContainer = transform.Find("graphContainer").GetComponent<RectTransform>();
+        // Set btn event listeners
+        algorithmButton = GameObject.Find("algorithmBtn").GetComponent<Button>();
+        algorithmButton.onClick.AddListener(CambiarAlgoritmo);
         labelTemplateX = graphContainer.Find("labelTemplateX").GetComponent<RectTransform>();
         labelTemplateY = graphContainer.Find("labelTemplateY").GetComponent<RectTransform>();
         // Crear insertion sort
         CrearGraficaInsertionSort();
     }
 
+    private void CambiarAlgoritmo()
+    {
+        // Set title
+        Text algorithmTitle = transform.Find("algorithmTitle").GetComponent<Text>();
+        algorithmTitle.text = algorithmTitle.text == "Grafica Insertion Sort" ? "Grafica Merge Sort" : "Grafica Insertion Sort";
+
+    }
+
     // Crear un circulo con el sprite
-    public void CreateCircle(Vector2 position)
+    private void CreateCircle(Vector2 position)
     {
         // Crear game object
         GameObject circleObject = new GameObject("circle", typeof(Image));
@@ -78,22 +90,6 @@ public class Window_Graph : MonoBehaviour
         {
             // Medir tiempo segun cantidad de elementos
             var resultadoTiempo = ArraySorter.MedirInsertionSort(cantidadDeElementosActual);
-            resultadosDeTiempo[cantidadDeElementosActual / 1000 - 1] = resultadoTiempo;
-            cantidadDeElementosActual += 1000;
-        }
-        // Mostrar grafico
-        ShowGraph(resultadosDeTiempo);
-    }
-
-    private void CrearGraficaMergeSort()
-    {
-        int[] resultadosDeTiempo = new int[9];
-        int cantidadDeElementosActual = 1000;
-        // Agregar valores de tiempo al arreglo
-        while (cantidadDeElementosActual < 10000)
-        {
-            // Medir tiempo segun cantidad de elementos
-            var resultadoTiempo = ArraySorter.MedirMergeSort(cantidadDeElementosActual);
             resultadosDeTiempo[cantidadDeElementosActual / 1000 - 1] = resultadoTiempo;
             cantidadDeElementosActual += 1000;
         }
