@@ -23,12 +23,12 @@ public class Window_Graph : MonoBehaviour
     public void CreateCircle(Vector2 position)
     {
         // Crear game object
-        GameObject gameObject = new GameObject("circle", typeof(Image));
-        gameObject.transform.SetParent(graphContainer, false);
+        GameObject circleObject = new GameObject("circle", typeof(Image));
+        circleObject.transform.SetParent(graphContainer, false);
         // Set sprite
-        gameObject.GetComponent<Image>().sprite = circuloSprite;
+        circleObject.GetComponent<Image>().overrideSprite = circuloSprite;
         // Posicionar el circulo y asignar tamaño
-        RectTransform rectTransform = gameObject.GetComponent<RectTransform>();
+        RectTransform rectTransform = circleObject.GetComponent<RectTransform>();
         rectTransform.anchoredPosition = position;
         rectTransform.sizeDelta = new Vector2(11, 11);
         rectTransform.anchorMin = new Vector2(0, 0);
@@ -39,7 +39,7 @@ public class Window_Graph : MonoBehaviour
     {
         float graphHeight = graphContainer.sizeDelta.y;
         // Valor maximo ingresado por Y
-        float yMaximun = 220f;
+        float yMaximun = 216f;
         // Distancia entre cada valor de X 
         float xSize = 90f;
         for (int i = 0; i < valueArr.Length; i++)
@@ -54,6 +54,18 @@ public class Window_Graph : MonoBehaviour
             labelX.gameObject.SetActive(true);
             labelX.anchoredPosition = new Vector2(xPosition + 20f, -10f);
             labelX.GetComponent<Text>().text = ((i + 1) * 1000).ToString();
+        }
+        // Crear separadoers en el eje Y
+        int separatorCount = 9;
+        for (int i = 0; i < separatorCount; i++)
+        {
+            RectTransform labelY = Instantiate(labelTemplateY);
+            labelY.SetParent(graphContainer.transform, false);
+            labelY.gameObject.SetActive(true);
+            // Crear valor normalizado
+            float normalizedValue = i * 1f / separatorCount;
+            labelY.anchoredPosition = new Vector2(-10f, normalizedValue * graphHeight);
+            labelY.GetComponent<Text>().text = Mathf.RoundToInt(normalizedValue * yMaximun).ToString();
         }
     }
 
