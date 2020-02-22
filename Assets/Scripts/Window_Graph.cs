@@ -7,16 +7,16 @@ public class Window_Graph : MonoBehaviour
 {
     [SerializeField] private Sprite circuloSprite;
     private RectTransform graphContainer;
+    private RectTransform labelTemplateX;
+    private RectTransform labelTemplateY;
 
     private void Awake()
     {
         graphContainer = transform.Find("graphContainer").GetComponent<RectTransform>();
-        // Prueba del Insertion sort
-        var result = ArraySorter.MedirInsertionSort(9000);
-        Debug.Log($"El algoritmo duro {result} milisegundos");
+        labelTemplateX = graphContainer.Find("labelTemplateX").GetComponent<RectTransform>();
+        labelTemplateY = graphContainer.Find("labelTemplateY").GetComponent<RectTransform>();
         // Crear insertion sort
-        //CrearGraficaInsertionSort();
-        CrearGraficaMergeSort();
+        CrearGraficaInsertionSort();
     }
 
     // Crear un circulo con el sprite
@@ -44,9 +44,16 @@ public class Window_Graph : MonoBehaviour
         float xSize = 90f;
         for (int i = 0; i < valueArr.Length; i++)
         {
+            // Spawnear circulo del resultado
             float xPosition = i * xSize;
             float yPosition = (valueArr[i] / yMaximun) * graphHeight;
-            CreateCircle(new Vector2(xPosition + xSize, yPosition));
+            CreateCircle(new Vector2(xPosition + 20f, yPosition));
+            // Crear label en el eje X
+            RectTransform labelX = Instantiate(labelTemplateX);
+            labelX.SetParent(graphContainer.transform, false);
+            labelX.gameObject.SetActive(true);
+            labelX.anchoredPosition = new Vector2(xPosition + 20f, -10f);
+            labelX.GetComponent<Text>().text = ((i + 1) * 1000).ToString();
         }
     }
 
