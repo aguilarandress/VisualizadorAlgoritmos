@@ -10,6 +10,7 @@ public class Window_Graph : MonoBehaviour
     private RectTransform labelTemplateX;
     private RectTransform labelTemplateY;
     private Button algorithmButton;
+    private Button exitButton;
 
     private int[] numeroDeElementosArr = { 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000 };
     private int[] resultadosInsertionSort = new int[9];
@@ -21,6 +22,10 @@ public class Window_Graph : MonoBehaviour
         // Set btn event listeners
         algorithmButton = GameObject.Find("algorithmBtn").GetComponent<Button>();
         algorithmButton.onClick.AddListener(CambiarAlgoritmo);
+        // Boton para terminar la aplicacion
+        exitButton = GameObject.Find("exitBtn").GetComponent<Button>();
+        exitButton.onClick.AddListener(() => Application.Quit());
+        // Label templates
         labelTemplateX = graphContainer.Find("labelTemplateX").GetComponent<RectTransform>();
         labelTemplateY = graphContainer.Find("labelTemplateY").GetComponent<RectTransform>();
         // Generar resultados iniciales
