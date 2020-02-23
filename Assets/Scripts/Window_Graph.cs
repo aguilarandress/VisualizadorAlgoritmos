@@ -11,6 +11,10 @@ public class Window_Graph : MonoBehaviour
     private RectTransform labelTemplateY;
     public Button algorithmButton;
 
+    private int[] numeroDeElementosArr = { 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000 };
+    private int[] resultadosInsertionSort = new int[9];
+    private int[] resultadosMergeSort = new int[9];
+
     private void Awake()
     {
         graphContainer = transform.Find("graphContainer").GetComponent<RectTransform>();
@@ -19,8 +23,9 @@ public class Window_Graph : MonoBehaviour
         algorithmButton.onClick.AddListener(CambiarAlgoritmo);
         labelTemplateX = graphContainer.Find("labelTemplateX").GetComponent<RectTransform>();
         labelTemplateY = graphContainer.Find("labelTemplateY").GetComponent<RectTransform>();
-        // Crear insertion sort
-        CrearGraficaInsertionSort();
+        // Generar resultados iniciales
+        GenerarResuladosAlgoritmos();
+        ShowGraph(resultadosInsertionSort);
     }
 
     private void CambiarAlgoritmo()
@@ -28,7 +33,22 @@ public class Window_Graph : MonoBehaviour
         // Set title
         Text algorithmTitle = transform.Find("algorithmTitle").GetComponent<Text>();
         algorithmTitle.text = algorithmTitle.text == "Grafica Insertion Sort" ? "Grafica Merge Sort" : "Grafica Insertion Sort";
+        // Cambiar coordenadas
+        /*
+        for ()
+        {
+            // TODO: Cambiar coordenadas
+        }
+        */
+    }
 
+    private void GenerarResuladosAlgoritmos()
+    {
+        for (int i = 0; i < numeroDeElementosArr.Length; i++)
+        {
+            resultadosInsertionSort[i] = ArraySorter.MedirInsertionSort(numeroDeElementosArr[i]);
+            resultadosMergeSort[i] = ArraySorter.MedirMergeSort(numeroDeElementosArr[i]);
+        }
     }
 
     // Crear un circulo con el sprite
@@ -37,6 +57,7 @@ public class Window_Graph : MonoBehaviour
         // Crear game object
         GameObject circleObject = new GameObject("circle", typeof(Image));
         circleObject.transform.SetParent(graphContainer, false);
+        circleObject.tag = "circleObject";
         // Set sprite
         circleObject.GetComponent<Image>().overrideSprite = circuloSprite;
         // Posicionar el circulo y asignar tamaño
@@ -79,21 +100,5 @@ public class Window_Graph : MonoBehaviour
             labelY.anchoredPosition = new Vector2(-10f, normalizedValue * graphHeight);
             labelY.GetComponent<Text>().text = Mathf.RoundToInt(normalizedValue * yMaximun).ToString();
         }
-    }
-
-    private void CrearGraficaInsertionSort()
-    {
-        int[] resultadosDeTiempo = new int[9];
-        int cantidadDeElementosActual = 1000;
-        // Agregar valores de tiempo al arreglo
-        while (cantidadDeElementosActual < 10000)
-        {
-            // Medir tiempo segun cantidad de elementos
-            var resultadoTiempo = ArraySorter.MedirInsertionSort(cantidadDeElementosActual);
-            resultadosDeTiempo[cantidadDeElementosActual / 1000 - 1] = resultadoTiempo;
-            cantidadDeElementosActual += 1000;
-        }
-        // Mostrar grafico
-        ShowGraph(resultadosDeTiempo);
     }
 }
