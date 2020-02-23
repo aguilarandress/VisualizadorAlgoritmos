@@ -9,7 +9,7 @@ public class Window_Graph : MonoBehaviour
     private RectTransform graphContainer;
     private RectTransform labelTemplateX;
     private RectTransform labelTemplateY;
-    public Button algorithmButton;
+    private Button algorithmButton;
 
     private int[] numeroDeElementosArr = { 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000 };
     private int[] resultadosInsertionSort = new int[9];
@@ -33,17 +33,22 @@ public class Window_Graph : MonoBehaviour
         // Set title
         Text algorithmTitle = transform.Find("algorithmTitle").GetComponent<Text>();
         algorithmTitle.text = algorithmTitle.text == "Grafica Insertion Sort" ? "Grafica Merge Sort" : "Grafica Insertion Sort";
-        // Cambiar coordenadas
-        /*
-        for ()
+        // Obtener todos los circleObjects
+        GameObject[] circleObjects = GameObject.FindGameObjectsWithTag("circleObject");
+        float graphHeight = graphContainer.sizeDelta.y;
+        float yMaximun = 216f;
+        for (int i = 0; i < circleObjects.Length; i++)
         {
-            // TODO: Cambiar coordenadas
+            // Generar posicion nueva 
+            RectTransform circleRectTransform = circleObjects[i].GetComponent<RectTransform>();
+            float yPosition =  algorithmTitle.text == "Grafica Insertion Sort" ? (resultadosInsertionSort[i] / yMaximun) * graphHeight : (resultadosMergeSort[i] / yMaximun) * graphHeight;
+            circleRectTransform.anchoredPosition = new Vector2(circleRectTransform.anchoredPosition.x, yPosition);
         }
-        */
     }
 
     private void GenerarResuladosAlgoritmos()
     {
+        // Generar resultados
         for (int i = 0; i < numeroDeElementosArr.Length; i++)
         {
             resultadosInsertionSort[i] = ArraySorter.MedirInsertionSort(numeroDeElementosArr[i]);
