@@ -32,7 +32,6 @@ public class Window_Graph : MonoBehaviour
         GenerarResuladosAlgoritmos();
         ShowGraph(resultadosInsertionSort);
     }
-
     private void CambiarAlgoritmo()
     {
         // Set title
